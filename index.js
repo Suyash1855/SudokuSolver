@@ -15,12 +15,62 @@ function matFill(){
     }
   }
 
+  if(isValidSudoku(board)==true){
   solveSudoku(board);
   console.log(board);
   fillInput();
+  }
+  else{
+    document.querySelector('.p-tag').innerHTML='The entered sudoku is not valid i.e you have entered same value in same column or row or the 3*3 grid. ';
+    document.querySelector('.p-tag').classList.add('active');
+  }
   } 
 
-
+  function valid(ch, i, j, board) {
+    for (let k = 0; k < 9; k++) {
+      if (k !== i) {
+        if (board[k][j] === ch) {
+          return false;
+        }
+      }
+    }
+  
+    for (let m = 0; m < 9; m++) {
+      if (m !== j) {
+        if (board[i][m] === ch) {
+          return false;
+        }
+      }
+    }
+  
+    const row = Math.floor(i / 3) * 3;
+    const col = Math.floor(j / 3) * 3;
+  
+    for (let x = row; x < row + 3; x++) {
+      for (let y = col; y < col + 3; y++) {
+        if (x !== i && y !== j) {
+          if (board[x][y] === ch) {
+            return false;
+          }
+        }
+      }
+    }
+  
+    return true;
+  }
+  
+  function isValidSudoku(board) {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[0].length; j++) {
+        if (board[i][j] !== 0) {
+          if (!valid(board[i][j], i, j, board)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
   function solveSudoku(matrix) {
     // Define a helper function to check if a given number is valid in a cell
     function isValid(row, col, num) {
@@ -100,4 +150,6 @@ function matFill(){
         
       }
     }
+    document.querySelector('.p-tag').innerHTML=' ';
+    document.querySelector('.p-tag').classList.remove('active');
   }
