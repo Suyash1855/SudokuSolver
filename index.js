@@ -21,12 +21,15 @@ function matFill(){
   fillInput();
   }
   else{
-    document.querySelector('.p-tag').innerHTML='The entered sudoku is not valid i.e you have entered same value in same column or row or the 3*3 grid. ';
+    document.querySelector('.p-tag').innerHTML='The entered sudoku is not valid. It can be due to following cases: 1)Same value in same column or row or the 3*3 grid 2)The entered digit is other than 0-9';
     document.querySelector('.p-tag').classList.add('active');
   }
   } 
 
   function valid(ch, i, j, board) {
+    if(ch.toString().length!=1){
+      return false;
+    }
     for (let k = 0; k < 9; k++) {
       if (k !== i) {
         if (board[k][j] === ch) {
