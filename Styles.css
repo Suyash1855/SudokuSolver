@@ -159,4 +159,12 @@ li{
       width: 20px;
     }
   }
+  @media screen and (max-width:400px){
+      .input{
+        margin: 0;
+      }
+      body{
+        height: 100vh;
+      }
+  }
   
